@@ -1,6 +1,6 @@
 # karma-reporter
 
-A plugin for running javascript tests with Karma.
+A plugin for running clojurescript tests with Karma.
 
 ## Installation
 
@@ -8,7 +8,7 @@ The easiest way is to keep karma-reporter as a dependency in your project.clj:
 
 `[karma-reporter "0.1.0-SNAPSHOT"]`
 
-To be able to execute your tests with Karma, you have to install [karma-cljs-test](https://github.com/honzabrecka/karma-cljs-test).
+To be able to execute your clojurescript tests with Karma, you have to install [karma-cljs-test](https://github.com/honzabrecka/karma-cljs-test).
 
 ## Configuration
 
