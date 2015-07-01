@@ -1,4 +1,4 @@
-# karma-reporter [![Build Status](https://travis-ci.org/honzabrecka/karma-reporter.svg?branch=ci)](https://travis-ci.org/honzabrecka/karma-reporter)
+# karma-reporter [![Build Status](https://travis-ci.org/honzabrecka/karma-reporter.svg?branch=master)](https://travis-ci.org/honzabrecka/karma-reporter)
 
 A plugin for running clojurescript tests with Karma.
 
