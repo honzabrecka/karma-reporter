@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "karma": "0.12.37",
+    "karma": "0.13.3",
     "karma-firefox-launcher": "0.1.6",
     "karma-cljs-test": "0.1.0"
   }
