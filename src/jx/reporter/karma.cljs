@@ -24,6 +24,7 @@
 (defmethod cljs.test/report :karma [m])
 
 (defmethod cljs.test/report [::karma :begin-test-var] [m]
+  (vreset! test-var-time-start (now))
   (vreset! test-var-result []))
 
 (defmethod cljs.test/report [::karma :end-test-var] [m]
