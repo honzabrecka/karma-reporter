@@ -1,4 +1,4 @@
-(defproject karma-reporter "0.1.0"
+(defproject karma-reporter "0.2.0"
   :description "A plugin for running clojurescript tests with Karma."
   :url "https://github.com/honzabrecka/colored-reporter"
   :license {:name "MIT License"
