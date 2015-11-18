@@ -21,8 +21,7 @@ And of course, you need Karma. If you haven't installed it yet, follow [these in
 ```js
 // karma.conf.js
 module.exports = function(config) {
-  // same as :output-dir
-  var root = 'target/public/dev';
+  var root = 'target/public/dev'// same as :output-dir
 
   config.set({
     frameworks: ['cljs-test'],
@@ -37,28 +36,33 @@ module.exports = function(config) {
 
     client: {
       // main function
-      args: ['app.test_runner.run_with_karma']
+      args: ['app.test_runner.run']
     },
-  });
-};
+  })
+}
 ```
 
 ## Example
 
 ```clojure
 (ns app.test-runner
-  (:require [cljs.test :refer-macros [run-tests]]
-            [jx.reporter.karma :refer-macros [tests-count]]
-            [foo.bar]))
+  (:require [jx.reporter.karma :refer-macros [run-tests]]
+            [foo.bar-test]))
 
 (set-print-fn! #(.log js/console %))
 
-(defn run [env]
-  (run-tests env
-             'foo.bar))
+(defn ^:export run [karma]
+  (run-tests karma 'foo.bar-test))
+```
 
-(defn ^:export run-with-karma [tc]
-  (do (jx.reporter.karma/start tc (tests-count foo.bar))
-      (run (cljs.test/empty-env :jx.reporter.karma/karma))))
+To execute tests from command line:
 
+```bash
+./node_modules/.bin/karma start karma.conf.js --single-run
+```
+
+To execute tests from REPL (will use :cljs.test/default reporter):
+
+```clojure
+(app.test-runner/run nil)
 ```
