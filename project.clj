@@ -2,7 +2,7 @@
 
   :description "A plugin for running clojurescript tests with Karma."
 
-  :url "https://github.com/honzabrecka/colored-reporter"
+  :url "https://github.com/honzabrecka/karma-reporter"
 
   :license {:name "MIT License"
             :url "http://www.opensource.org/licenses/mit-license.php"}
