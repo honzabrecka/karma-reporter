@@ -4,8 +4,12 @@
             [cljs.analyzer.api :as api]))
 
 (defmacro tests-count [& namespaces]
-  `(+ ~@(map (fn [ns]
-               (count (filter
-                        #(:test (nth % 1) false)
-                        (cljs.analyzer.api/ns-publics ns))))
+  `(+ ~@(map (fn [[quote ns]]
+               (count
+                 (filter #(true? (get-in % [1 :test]))
+                         (cljs.analyzer.api/ns-publics ns))))
              namespaces)))
+
+(defmacro run-tests [karma & namespaces]
+  `(do (jx.reporter.karma/start ~karma (tests-count ~@namespaces))
+       (cljs.test/run-tests (cljs.test/empty-env ::karma) ~@namespaces)))

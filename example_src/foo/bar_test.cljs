@@ -6,3 +6,5 @@
 
 (deftest subtract-test
   (is (= 3 (- 7 4))))
+
+(defn not-a-test [])

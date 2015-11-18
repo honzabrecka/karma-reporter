@@ -15,7 +15,7 @@ module.exports = function (config) {
 
 
     client: {
-      args: ['foo.test_runner.run_with_karma']
+      args: ['foo.test_runner.run']
     },
 
 
