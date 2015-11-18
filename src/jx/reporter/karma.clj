@@ -11,5 +11,7 @@
              namespaces)))
 
 (defmacro run-tests [karma & namespaces]
-  `(do (jx.reporter.karma/start ~karma (tests-count ~@namespaces))
-       (cljs.test/run-tests (cljs.test/empty-env ::karma) ~@namespaces)))
+  (if (nil? karma)
+    `(cljs.test/run-tests ~@namespaces)
+    `(do (jx.reporter.karma/start ~karma (tests-count ~@namespaces))
+        (cljs.test/run-tests (cljs.test/empty-env ::karma) ~@namespaces))))
