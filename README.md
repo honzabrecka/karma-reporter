@@ -58,7 +58,7 @@ module.exports = function(config) {
 To execute tests from command line:
 
 ```bash
-./node_modules/.bin/karma start karma.conf.js
+./node_modules/.bin/karma start karma.conf.js --single-run
 ```
 
 To execute tests from REPL (will use :cljs.test/default reporter):
