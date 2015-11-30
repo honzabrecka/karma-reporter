@@ -49,7 +49,7 @@ module.exports = function(config) {
   (:require [jx.reporter.karma :refer-macros [run-tests]]
             [foo.bar-test]))
 
-(set-print-fn! #(.log js/console %))
+(enable-console-print!)
 
 (defn ^:export run [karma]
   (run-tests karma 'foo.bar-test))
@@ -61,7 +61,7 @@ To execute tests from command line:
 ./node_modules/.bin/karma start karma.conf.js --single-run
 ```
 
-To execute tests from REPL (will use :cljs.test/default reporter):
+To execute tests from REPL (will use `:cljs.test/default` reporter):
 
 ```clojure
 (app.test-runner/run nil)
