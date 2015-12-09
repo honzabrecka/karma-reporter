@@ -1,5 +1,6 @@
 (ns jx.reporter.karma
-  (:require [cljs.test]))
+  (:require [cljs.test])
+  (:require-macros [jx.reporter.karma :as karma]))
 
 (def karma (volatile! nil))
 
