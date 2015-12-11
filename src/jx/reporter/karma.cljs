@@ -21,11 +21,13 @@
 (defn- now []
   (.getTime (js/Date.)))
 
-(defn- format-log [{:keys [expected actual] :as result}]
+(defn- format-log [{:keys [expected actual message] :as result}]
   (str
-    "Fail " (cljs.test/testing-vars-str result) "\n"
-    "Expected " (pr-str expected) "\n"
-    "Actual: " (pr-str actual) "\n"))
+    "Fail: " (cljs.test/testing-vars-str result) "\n"
+    "Expected: " (pr-str expected) "\n"
+    "Actual: " (pr-str actual) "\n"
+    (when message
+      (str "Message: " (pr-str message) "\n"))))
 
 (def test-var-result (volatile! []))
 
