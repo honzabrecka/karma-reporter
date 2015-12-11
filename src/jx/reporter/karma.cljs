@@ -23,11 +23,11 @@
 
 (defn- format-log [{:keys [expected actual message] :as result}]
   (str
-    "Fail: " (cljs.test/testing-vars-str result) "\n"
-    "Expected: " (pr-str expected) "\n"
-    "Actual: " (pr-str actual) "\n"
+    "FAIL in   " (cljs.test/testing-vars-str result) "\n"
+    "expected: " (pr-str expected) "\n"
+    "  actual: " (pr-str actual) "\n"
     (when message
-      (str "Message: " (pr-str message) "\n"))))
+      (str " message: " (pr-str message) "\n"))))
 
 (def test-var-result (volatile! []))
 
