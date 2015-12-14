@@ -27,7 +27,7 @@
     "expected: " (pr-str expected) "\n"
     "  actual: " (pr-str actual) "\n"
     (when message
-      (str " message: " (pr-str message) "\n"))))
+      (str " message: " message "\n"))))
 
 (def test-var-result (volatile! []))
 
