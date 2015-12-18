@@ -15,3 +15,15 @@
     `(cljs.test/run-tests ~@namespaces)
     `(do (jx.reporter.karma/start ~karma (tests-count ~@namespaces))
         (cljs.test/run-tests (cljs.test/empty-env ::karma) ~@namespaces))))
+
+(defmacro run-all-tests
+  ([karma] `(run-all-tests ~karma nil))
+  ([karma re]
+   (if (nil? karma)
+     `(cljs.test/run-all-tests ~re)
+     (let [namespaces# (map
+                         (fn [ns] `(quote ~ns))
+                         (cond->> (api/all-ns)
+                                  re (filter #(re-matches re (name %)))))]
+       `(do (jx.reporter.karma/start ~karma (tests-count ~@namespaces#))
+            (cljs.test/run-all-tests ~re (cljs.test/empty-env ::karma)))))))

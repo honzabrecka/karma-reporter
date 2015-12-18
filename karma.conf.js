@@ -16,6 +16,8 @@ module.exports = function (config) {
 
     client: {
       args: ['foo.test_runner.run']
+      // args: ['foo.test_runner.run_all']
+      // args: ['foo.test_runner.run_all_regex']
     },
 
 
