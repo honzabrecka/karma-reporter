@@ -38,19 +38,32 @@ module.exports = function(config) {
       // main function
       args: ['app.test_runner.run']
     },
+    
+    // singleRun set to false does not work!
+    singleRun: true
   })
 }
 ```
 
-## Example
+## Usage
 
 ```clojure
 (ns app.test-runner
-  (:require [jx.reporter.karma :refer-macros [run-tests]]
+  (:require [jx.reporter.karma :refer-macros [run-tests run-all-tests]]
             [foo.bar-test]))
 
 (enable-console-print!)
 
+; runs all tests in all namespaces
+(defn ^:export run-all [karma]
+  (run-all-tests karma))
+
+; runs all tests in all namespaces - only namespaces with names matching
+; the regular expression will be tested
+(defn ^:export run-all-regex [karma]
+  (run-all-tests karma #".*-test$"))
+
+; runs all tests in the given namespaces
 (defn ^:export run [karma]
   (run-tests karma 'foo.bar-test))
 ```
@@ -58,7 +71,7 @@ module.exports = function(config) {
 To execute tests from command line:
 
 ```bash
-./node_modules/.bin/karma start karma.conf.js --single-run
+./node_modules/.bin/karma start
 ```
 
 To execute tests from REPL (will use `:cljs.test/default` reporter):
