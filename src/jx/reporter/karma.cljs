@@ -1,5 +1,6 @@
 (ns jx.reporter.karma
-  (:require [cljs.test])
+  (:require [cljs.test]
+            [cljs.pprint :as pp])
   (:require-macros [jx.reporter.karma :as karma]))
 
 (def karma (volatile! nil))
@@ -22,12 +23,13 @@
   (.getTime (js/Date.)))
 
 (defn- format-log [{:keys [expected actual message] :as result}]
-  (str
-    "FAIL in   " (cljs.test/testing-vars-str result) "\n"
-    "expected: " (pr-str expected) "\n"
-    "  actual: " (pr-str actual) "\n"
+  (with-out-str
+    (println "FAIL in  " (cljs.test/testing-vars-str result))
+    (binding [*out* (pp/get-pretty-writer *out*)]
+      (print "expected: ") (pp/pprint expected)
+      (print "  actual: ") (pp/pprint actual))
     (when message
-      (str " message: " message "\n"))))
+      (println " message: " message "\n"))))
 
 (def test-var-result (volatile! []))
 
