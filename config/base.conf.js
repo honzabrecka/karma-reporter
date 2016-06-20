@@ -1,8 +1,7 @@
 var path = require('path');
+var root = '../target/public/test';
 
-module.exports = function (config) {
-
-  var root = 'target/public/test';
+module.exports = function (config, runner) {
 
 
   config.basePath = __dirname;
@@ -15,9 +14,7 @@ module.exports = function (config) {
 
 
     client: {
-      args: ['foo.test_runner.run']
-      // args: ['foo.test_runner.run_all']
-      // args: ['foo.test_runner.run_all_regex']
+      args: [runner]
     },
 
 

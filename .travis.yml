@@ -6,6 +6,8 @@ before_script:
   - sh -e /etc/init.d/xvfb start
 script:
  - lein2 cljsbuild once test
- - ./node_modules/.bin/karma start karma.conf.js
+ - ./node_modules/.bin/karma start config/run.conf.js
+ - ./node_modules/.bin/karma start config/run-all.conf.js
+ - ./node_modules/.bin/karma start config/run-all-regex.conf.js
 jdk:
   - oraclejdk8
