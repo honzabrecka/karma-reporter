@@ -8,7 +8,8 @@
             :url "http://www.opensource.org/licenses/mit-license.php"}
 
   :dependencies [[org.clojure/clojure "1.8.0"]
-                 [org.clojure/clojurescript "1.9.229"]]
+                 [org.clojure/clojurescript "1.9.229"]
+                 [fipp "0.6.7"]]
 
   :plugins [[lein-cljsbuild "1.1.1"]]
 
