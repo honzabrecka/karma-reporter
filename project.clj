@@ -7,8 +7,8 @@
   :license {:name "MIT License"
             :url "http://www.opensource.org/licenses/mit-license.php"}
 
-  :dependencies [[org.clojure/clojure "1.7.0"]
-                 [org.clojure/clojurescript "1.7.170"]]
+  :dependencies [[org.clojure/clojure "1.8.0"]
+                 [org.clojure/clojurescript "1.9.229"]]
 
   :plugins [[lein-cljsbuild "1.1.1"]]
 
