@@ -1,6 +1,7 @@
 (ns jx.reporter.karma
   (:require [cljs.test]
-            [fipp.clojure])
+            [fipp.clojure]
+            [pjstadig.humane-test-output])
   (:require-macros [jx.reporter.karma :as karma]))
 
 (def karma (volatile! nil))
@@ -62,6 +63,7 @@
     (karma-result! result)))
 
 (defmethod cljs.test/report [::karma :fail] [m]
+  (println m)
   (cljs.test/inc-report-counter! :fail)
   (vswap! test-var-result conj m))
 
