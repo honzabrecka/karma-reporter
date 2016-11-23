@@ -1,5 +1,6 @@
 (ns jx.reporter.karma
   (:require [cljs.test]
+            [clojure.data]
             [fipp.clojure])
   (:require-macros [jx.reporter.karma :as karma]))
 
@@ -26,20 +27,41 @@
   (let [indentation (reduce str "" (repeat n " "))]
     (clojure.string/replace s #"\n" (str "\n" indentation))))
 
-(defn format-fn [[c & q]]
+(defn remove-last-new-line [s]
+  (subs s 0 (dec (count s))))
+
+(defn format-fn [indentation [c & q]]
   (let [e (->> q
                (map #(with-out-str (fipp.clojure/pprint %)))
                (apply str)
                (str "\n"))]
-    (str "(" c (indent 12 (subs e 0 (dec (count e)))) ")")))
+    (str "(" c (indent (+ indentation 2) (remove-last-new-line e)) ")")))
+
+(defn format-diff [indentation assert [c a b & q]]
+  (when (and (= c '=) (= (count assert) 3) (nil? q))
+    (let [format (fn [sign value]
+                   (str sign " "
+                        (if value
+                          (indent (+ indentation 2)
+                                  (-> value
+                                      (fipp.clojure/pprint {:width 1})
+                                      (with-out-str)
+                                      (remove-last-new-line)))
+                          "\n")))
+          [removed added] (clojure.data/diff a b)]
+      (str (format "-" removed)
+           (format (str "\n" (apply str (repeat indentation " ")) "+") added)))))
 
 (defn- format-log [{:keys [expected actual message] :as result}]
-  (str
-    "FAIL in   " (cljs.test/testing-vars-str result) "\n"
-    "expected: " (format-fn expected) "\n"
-    "  actual: " (format-fn (second actual)) "\n"
-    (when message
-      (str " message: " (indent 10 message) "\n"))))
+  (let [indentation (count "expected: ")]
+    (str
+      "FAIL in   " (cljs.test/testing-vars-str result) "\n"
+      "expected: " (format-fn indentation expected) "\n"
+      "  actual: " (format-fn indentation (second actual)) "\n"
+      (when-let [diff (format-diff indentation expected (second actual))]
+        (str "    diff: " diff "\n"))
+      (when message
+        (str " message: " (indent indentation message) "\n")))))
 
 (def test-var-result (volatile! []))
 
