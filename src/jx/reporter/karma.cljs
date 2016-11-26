@@ -1,7 +1,8 @@
 (ns jx.reporter.karma
   (:require [cljs.test]
             [fipp.clojure]
-            [pjstadig.humane-test-output])
+            [pjstadig.humane-test-output]
+            [pjstadig.util :as util])
   (:require-macros [jx.reporter.karma :as karma]))
 
 (def karma (volatile! nil))
@@ -35,12 +36,7 @@
     (str "(" c (indent 12 (subs e 0 (dec (count e)))) ")")))
 
 (defn- format-log [{:keys [expected actual message] :as result}]
-  (str
-    "FAIL in   " (cljs.test/testing-vars-str result) "\n"
-    "expected: " (format-fn expected) "\n"
-    "  actual: " (format-fn (second actual)) "\n"
-    (when message
-      (str " message: " (indent 10 message) "\n"))))
+  (#'util/report- result))
 
 (def test-var-result (volatile! []))
 
@@ -63,7 +59,6 @@
     (karma-result! result)))
 
 (defmethod cljs.test/report [::karma :fail] [m]
-  (println m)
   (cljs.test/inc-report-counter! :fail)
   (vswap! test-var-result conj m))
 
