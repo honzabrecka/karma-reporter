@@ -36,7 +36,7 @@
     (str "(" c (indent 12 (subs e 0 (dec (count e)))) ")")))
 
 (defn- format-log [{:keys [expected actual message] :as result}]
-  (#'util/report- result))
+  (with-out-str (#'util/report- result)))
 
 (def test-var-result (volatile! []))
 
