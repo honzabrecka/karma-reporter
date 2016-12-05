@@ -23,21 +23,21 @@
 (defn- now []
   (.getTime (js/Date.)))
 
-(defn indent [n s]
+(defn- indent [n s]
   (let [indentation (reduce str "" (repeat n " "))]
     (clojure.string/replace s #"\n" (str "\n" indentation))))
 
-(defn remove-last-new-line [s]
+(defn- remove-last-new-line [s]
   (subs s 0 (dec (count s))))
 
-(defn format-fn [indentation [c & q]]
+(defn- format-fn [indentation [c & q]]
   (let [e (->> q
                (map #(with-out-str (fipp.clojure/pprint %)))
                (apply str)
                (str "\n"))]
     (str "(" c (indent (+ indentation 2) (remove-last-new-line e)) ")")))
 
-(defn format-diff [indentation assert [c a b & q]]
+(defn- format-diff [indentation assert [c a b & q]]
   (when (and (= c '=) (= (count assert) 3) (nil? q))
     (let [format (fn [sign value]
                    (str sign " "
