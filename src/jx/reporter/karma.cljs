@@ -44,7 +44,7 @@
                         (if value
                           (indent (+ indentation 2)
                                   (-> value
-                                      (fipp.clojure/pprint {:width 1})
+                                      (fipp.clojure/pprint)
                                       (with-out-str)
                                       (remove-last-new-line)))
                           "\n")))
