@@ -77,6 +77,15 @@
 
 (defmethod cljs.test/report :karma [_])
 
+;; By default, all report types for :cljs.test reporter are printed
+(derive ::karma :cljs.test/default)
+
+;; Do not print "Ran <t> tests containing <a> assertions."
+(defmethod cljs.test/report [::karma :summary] [_])
+
+;; Do not print "Testing <ns>"
+(defmethod cljs.test/report [::karma :begin-test-ns] [m])
+
 (defmethod cljs.test/report [::karma :begin-test-var] [_]
   (vreset! test-var-time-start (now))
   (vreset! test-var-result []))
