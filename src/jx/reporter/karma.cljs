@@ -17,15 +17,7 @@
     (.result @karma (clj->js m))))
 
 (defn- coverage-result []
-  (let [xform (comp
-                (map (partial re-find #"__cov_[^_]+$"))
-                (filter (comp not nil?))
-                (map (partial aget js/window))
-                (mapcat (juxt #(.-path %) identity))
-                (partition-all 2))
-        all-vars (.keys js/Object js/window)
-        coverage-info (into {} xform all-vars)]
-    (clj->js {:coverage coverage-info})))
+  (clj->js {:coverage js/__coverage__}))
 
 (defn- karma-complete! []
   (when (karma?)
