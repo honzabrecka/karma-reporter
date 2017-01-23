@@ -17,7 +17,7 @@
     (.result @karma (clj->js m))))
 
 (defn- coverage-result []
-  (clj->js {:coverage js/__coverage__}))
+  #js {"coverage" (aget js/window "__coverage__")})
 
 (defn- karma-complete! []
   (when (karma?)
