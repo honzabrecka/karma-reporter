@@ -14,19 +14,3 @@
   (is (= 3 4) (str "Let me add in something\nfancy here: " {:a 1234})))
 
 (defn not-a-test [])
-
-(deftest fail
-  (is false))
-
-(deftest fail-x
-  (is true))
-
-(deftest fail2
-  (is (= 1 2)))
-
-(defn simple-fn [x]
-  {:post [(= x 1)]}
-  x)
-
-(deftest simple-test
-  (is (simple-fn 2)))
