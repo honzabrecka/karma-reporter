@@ -1,5 +1,6 @@
 var path = require('path');
 var root = '../target/public/test';
+var isDocker = require('is-docker')();
 
 module.exports = function (config, runner) {
 
@@ -11,6 +12,16 @@ module.exports = function (config, runner) {
     // frameworks to use
     // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
     frameworks: ['cljs-test'],
+
+
+    customLaunchers: {
+      ChromeCustom: {
+        base: 'ChromeHeadless',
+        // We must disable the Chrome sandbox when running Chrome inside Docker (Chrome's sandbox needs
+        // more permissions than Docker allows by default)
+        flags: isDocker ? ['--no-sandbox'] : []
+      }
+    },
 
 
     client: {
@@ -57,7 +68,7 @@ module.exports = function (config, runner) {
 
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-    browsers: ['Firefox'],
+    browsers: ['ChromeCustom'],
 
 
     // Continuous Integration mode
