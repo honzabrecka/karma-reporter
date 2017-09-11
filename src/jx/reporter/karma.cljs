@@ -2,7 +2,7 @@
   (:require [cljs.test]
             [clojure.data]
             [fipp.clojure]
-            [clojure.string :as str])
+            [clojure.string :as s])
   (:require-macros [jx.reporter.karma :as karma]))
 
 (def karma (volatile! nil))
@@ -60,7 +60,7 @@
   (let [indentation (count "expected: ")]
     (str
       "FAIL in   " (cljs.test/testing-vars-str result) "\n"
-      (when-not (str/blank? testing-contexts-str)
+      (when-not (s/blank? testing-contexts-str)
         (str "\"" testing-contexts-str "\"\n"))
       (if (and (seq? expected)
                (seq? actual))
