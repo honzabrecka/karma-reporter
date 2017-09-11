@@ -1,7 +1,8 @@
 (ns jx.reporter.karma
   (:require [cljs.test]
             [clojure.data]
-            [fipp.clojure])
+            [fipp.clojure]
+            [clojure.string :as str])
   (:require-macros [jx.reporter.karma :as karma]))
 
 (def karma (volatile! nil))
@@ -55,10 +56,12 @@
       (str (format "-" removed)
            (format (str "\n" (apply str (repeat indentation " ")) "+") added)))))
 
-(defn- format-log [{:keys [expected actual message] :as result}]
+(defn- format-log [{:keys [expected actual message testing-contexts-str] :as result}]
   (let [indentation (count "expected: ")]
     (str
       "FAIL in   " (cljs.test/testing-vars-str result) "\n"
+      (when-not (str/blank? testing-contexts-str)
+        (str "\"" testing-contexts-str "\"\n"))
       (if (and (seq? expected)
                (seq? actual))
         (str
@@ -102,11 +105,11 @@
 
 (defmethod cljs.test/report [::karma :fail] [m]
   (cljs.test/inc-report-counter! :fail)
-  (vswap! test-var-result conj m))
+  (vswap! test-var-result conj (assoc m :testing-contexts-str (cljs.test/testing-contexts-str))))
 
 (defmethod cljs.test/report [::karma :error] [m]
   (cljs.test/inc-report-counter! :error)
-  (vswap! test-var-result conj m))
+  (vswap! test-var-result conj (assoc m :testing-contexts-str (cljs.test/testing-contexts-str))))
 
 (defmethod cljs.test/report [::karma :end-run-tests] [_]
   (karma-complete!))
