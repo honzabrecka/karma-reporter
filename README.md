@@ -1,4 +1,4 @@
-# karma-reporter [![Build Status](https://travis-ci.org/honzabrecka/karma-reporter.svg?branch=master)](https://travis-ci.org/honzabrecka/karma-reporter)
+# karma-reporter [![CircleCI](https://circleci.com/gh/honzabrecka/karma-reporter/tree/master.svg?style=svg&circle-token=025b76c6b99f0f2ee5997dd580444ad075442e53)](https://circleci.com/gh/honzabrecka/karma-reporter/tree/master)
 
 A plugin for running ClojureScript tests with Karma.
 
@@ -38,7 +38,7 @@ module.exports = function(config) {
       // main function
       args: ['app.test_runner.run']
     },
-    
+
     // singleRun set to false does not work!
     singleRun: true
   })

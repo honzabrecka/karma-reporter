@@ -1,0 +1,13 @@
+version: 2
+jobs:
+  build:
+    working_directory: ~/w
+    docker:
+      - image: honzabrecka/cljnode-chrome:0.1.0
+    steps:
+      - checkout
+      - run: npm install
+      - run: lein cljsbuild once test
+      - run: ./node_modules/.bin/karma start config/run.conf.js
+      - run: ./node_modules/.bin/karma start config/run-all.conf.js
+      - run: ./node_modules/.bin/karma start config/run-all-regex.conf.js
