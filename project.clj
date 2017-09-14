@@ -1,4 +1,4 @@
-(defproject karma-reporter "2.1.2"
+(defproject karma-reporter "3.0.0-alpha1"
 
   :description "A plugin for running clojurescript tests with Karma."
 
