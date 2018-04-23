@@ -2,7 +2,8 @@
   (:require [cljs.test]
             [clojure.data]
             [fipp.clojure]
-            [clojure.string :as s])
+            [clojure.string :as s]
+            [goog.object :as o])
   (:require-macros [jx.reporter.karma :as karma]))
 
 (def karma (volatile! nil))
@@ -18,7 +19,7 @@
     (.result @karma (clj->js m))))
 
 (defn- coverage-result []
-  #js {"coverage" (aget js/window "__coverage__")})
+  #js {"coverage" (o/get js/window "__coverage__")})
 
 (defn- karma-complete! []
   (when (karma?)
