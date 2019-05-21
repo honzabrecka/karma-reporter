@@ -14,7 +14,7 @@ To be able to execute your ClojureScript tests with Karma, you have to install [
 npm install karma-cljs-test --save-dev
 ```
 
-And of course, you need Karma. If you haven't installed it yet, follow [these instructions](http://karma-runner.github.io/0.12/intro/installation.html).
+And of course, you need Karma. If you haven't installed it yet, follow [these instructions](https://karma-runner.github.io/4.0/intro/installation.html).
 
 ## Configuration
 
