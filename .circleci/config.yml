@@ -6,7 +6,8 @@ jobs:
       - image: honzabrecka/cljnode-chrome:0.1.0
     steps:
       - checkout
-      - run: npm install
+      - run: npm install -g yarn
+      - run: yarn install
       - run: lein cljsbuild once test
       - run: ./node_modules/.bin/karma start config/run.conf.js
       - run: ./node_modules/.bin/karma start config/run-all.conf.js
